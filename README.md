@@ -21,3 +21,26 @@
 - Para iniciar o servidor, clicaremos sobre o ícone "Start the server" ou usaremos o atalho "Ctrl + Alt + R".
 - Acesso ao Tomcat
 ```http://localhost:8080/```
+
+### Criação de um projeto
+
+- Para Cria o projeto vé em:
+	- File > new > Dynamic Web Project
+	- Em seguida preencha o **Project name** com o nome de *Gerenciador*.
+	- Marque o checkbox: *Generate web.xml*
+	- Finish
+- Acesso a primeira página
+- http://localhost:8080/gerenciador/bem-vindo.html
+
+### Primeiro Servlet
+- Acesso ao Servlet 
+- http://localhost:8080/gerenciador/oi
+- Define o caminho de acesso
+```@WebServlet(urlPatterns="/oi")```
+- Método ce acesso as respostas
+```
+@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+			
+	}
+```
