@@ -44,3 +44,14 @@
 			
 	}
 ```
+- Enviando parametros via queryParams
+- http://localhost:8080/gerenciador/novaEmpresa?nome=Alura
+- Acesso ao formulário
+- http://localhost:8080/gerenciador/formNovaEmpresa.html
+- Acesso a lista de empresas
+- http://localhost:8080/gerenciador/listaEmpresas
+#### Verbos
+- GET foi pensado para acessar algum recurso.
+- POST foi pensado para criar algum recurso.
+- GET gera problemas quando precisamos enviar muitas informações.
+
