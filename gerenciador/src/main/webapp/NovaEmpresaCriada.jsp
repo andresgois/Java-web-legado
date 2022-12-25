@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"
-%>  
 <%
-    String novaEmpresa = "Andre Tech";
+    String novaEmpresa = (String) request.getAttribute("nomeEmpresa");
     System.out.println("Empresa = "+novaEmpresa);
 %>
 <!DOCTYPE html>
