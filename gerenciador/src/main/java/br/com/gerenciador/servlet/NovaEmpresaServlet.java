@@ -2,6 +2,8 @@ package br.com.gerenciador.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,17 +22,24 @@ import br.com.gerenciador.servlet.model.Empresa;
 public class NovaEmpresaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
-    /**
-     * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
+    /** @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)    */
     protected void service(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         System.out.println("Cadastrando nova empresa");
         String nomeEmpresa = request.getParameter("nome");
+        String dataAberturaEmpresa = request.getParameter("data");
+        Date dataAbertura = null;
+        
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            dataAbertura = sdf.parse(dataAberturaEmpresa);
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
         
         Empresa empresa = new Empresa();
         empresa.setNome(nomeEmpresa);
+        empresa.setDataAbertura(dataAbertura);
         
         Banco banco = new Banco();
         banco.adicionar(empresa);

@@ -48,6 +48,7 @@
 - http://localhost:8080/gerenciador/novaEmpresa?nome=Alura
 - Acesso ao formulário
 - http://localhost:8080/gerenciador/formNovaEmpresa.html
+- http://localhost:8080/gerenciador/formNovaEmpresa.jsp
 - Acesso a lista de empresas
 - http://localhost:8080/gerenciador/listaEmpresas
 #### Verbos
@@ -85,3 +86,19 @@ rd.forward(request, response);
 ```
 <%@ page import="java.util.List, br.com.caelum.gerenciador.servlet.Empresa"%>
 ```
+
+#### JSTL
+- **core**: controle de fluxo
+- **fmt**: formatação / i18n (internacionalização)
+- **sql**: executar SQL
+- **xml**: gerar XML
+
+#### Renomear contexto do projeto
+- *Apenas fins didáticos*
+    - Botão direito no projeto
+        - Properties for ferenciador
+        - Web Project Settings
+        - Context root: nome_do_projeto_que_será_chamado_na_url
+
+#### .jar JSTL
+- [jar JSTL](https://caelum-online-public.s3.amazonaws.com/986-servlets-parte1/05/jstl-1.2.jar)

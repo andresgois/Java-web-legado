@@ -21,7 +21,7 @@ public class ListaEmpresasServlet extends HttpServlet {
 	    List<Empresa> lista = b.getEmpresas();
 	    RequestDispatcher rd = request.getRequestDispatcher("listaEmpresas.jsp");
 	        
-	    request.setAttribute("empresa", lista);
+	    request.setAttribute("empresas", lista);
 	    rd.forward(request, response);
 	   /* PrintWriter out = response.getWriter();
         out.println("<html>");
