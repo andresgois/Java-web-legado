@@ -55,3 +55,33 @@
 - POST foi pensado para criar algum recurso.
 - GET gera problemas quando precisamos enviar muitas informações.
 
+```mermaid
+  graph TD;
+      Chrome == request ==>Servlet;
+      subgraph tomcat
+        subgraph /gerenciador
+            Servlet -- Dispatcher --> JSP
+        end
+      end
+      JSP == response ==>Chrome
+
+      style Chrome fill:#ffff80,stroke:#000000,stroke-width:2px,color:#000000
+      style JSP fill:#c0c0c0,color:#000000,stroke:#000000
+      style Servlet fill:#c0c0c0,color:#000000,stroke:#000000
+      style tomcat fill:#ffffff,color:#000000
+      style /gerenciador fill:#ffffff,color:#000000, stroke:#000000,stroke-width:2px
+```
+
+#### Enviando dados para uma página JSP
+- Página que será enviado os dados
+- Settando a variável no **request**
+- enviando o request e response
+```
+RequestDispatcher rd = request.getRequestDispatcher("/NovaEmpresaCriada.jsp");
+request.setAttribute("nomeEmpresa", empresa.getNome());
+rd.forward(request, response);
+```
+- **Importando lib na página JSP**
+```
+<%@ page import="java.util.List, br.com.caelum.gerenciador.servlet.Empresa"%>
+```

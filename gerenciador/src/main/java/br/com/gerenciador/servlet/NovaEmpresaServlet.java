@@ -3,6 +3,7 @@ package br.com.gerenciador.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,12 +35,18 @@ public class NovaEmpresaServlet extends HttpServlet {
         Banco banco = new Banco();
         banco.adicionar(empresa);
         
-        PrintWriter out = response.getWriter();
+        /*PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<body>");
         out.println("<h3>Cadastrando nova empresa: "+ nomeEmpresa +"</h3>");
         out.println("</body>");
-        out.println("</html>");
+        out.println("</html>");*/
+        
+        // Chama o JSP
+        RequestDispatcher rd = request.getRequestDispatcher("/NovaEmpresaCriada.jsp");
+        request.setAttribute("nomeEmpresa", empresa.getNome());
+        rd.forward(request, response);
+        
     }
     
 }
