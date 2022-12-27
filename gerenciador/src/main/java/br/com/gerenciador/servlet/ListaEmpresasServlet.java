@@ -15,7 +15,8 @@ import br.com.gerenciador.servlet.model.Empresa;
 public class ListaEmpresasServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// antes era = doGet
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    Banco b = new Banco();
 	    
 	    List<Empresa> lista = b.getEmpresas();

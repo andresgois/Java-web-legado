@@ -102,3 +102,37 @@ rd.forward(request, response);
 
 #### .jar JSTL
 - [jar JSTL](https://caelum-online-public.s3.amazonaws.com/986-servlets-parte1/05/jstl-1.2.jar)
+
+#### RequestDispatcher
+- Delega o fluxo da requisição para qualquer recurso disponível.
+
+#### Server side
+```mermaid
+  graph TD;
+      Chrome == request ==>Servlet1;
+      subgraph tomcat
+        subgraph /gerenciador
+            Servlet1 -- Dispatcher --> Servlet2
+            Servlet1 <--> Modelo
+            Servlet2 <--> Modelo
+            Servlet2 -- Dispatcher --> JSP
+        end
+      end
+      JSP == response ==>Chrome
+
+```
+#### Client side
+```mermaid
+  graph TD;
+      Chrome == request ==>Servlet1
+      Chrome == request ==>Servlet2
+      Servlet1 == response ==> Chrome
+      subgraph tomcat
+        subgraph /gerenciador
+            Servlet1 <--> Modelo
+            Servlet2 <--> Modelo
+            Servlet2 -- Dispatcher - JSTL + EL --> JSP
+        end
+      end
+      JSP == response ==>Chrome
+```
