@@ -11,12 +11,11 @@
 </head>
 <body>
 
-<c:if test="${not empty empresas }">
+<c:if test="${not empty empresa }">
 	<p>
-		Empresa: ${ empresas } Cadastrada com sucesso
+		Empresa: ${ empresa } Cadastrada com sucesso
 	</p>
 </c:if>
-
 
  <h3>Lista de Empresas - Novo</h3>
  
@@ -24,7 +23,8 @@
  	<c:forEach items="${ empresas }" var="empresa">
  		<li>
  			${ empresa.nome } | 
- 			<fmt:formatDate value="${ empresa.dataAbertura }" pattern="dd/MM/yyyy" />
+ 			<fmt:formatDate value="${ empresa.dataAbertura }" pattern="dd/MM/yyyy" /> | 
+ 			<a href="/gerenciador/removeEmpresa?id=${empresa.id}">remove</a>
  		</li>
  	</c:forEach>
  </ul>
@@ -34,8 +34,5 @@
 %>
 	<li> <%= emp.getNome() %></li>
 <% }  %> --%>
-
-
-
 </body>
 </html>
