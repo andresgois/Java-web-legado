@@ -136,3 +136,49 @@ rd.forward(request, response);
       end
       JSP == response ==>Chrome
 ```
+
+### Mapeamento por XML no web.xml
+```
+<servlet>
+    <servlet-name>NES</servlet-name>
+    <servlet-class>br.com.alura.gerenciador.servlet.NovaEmpresaServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>NES</servlet-name>
+    <url-pattern>/nova</url-pattern>
+</servlet-mapping>
+```
+
+### Tomcat
+- Inversão de controle significa que não é meu método main que instancia objetos, quem se preocupa com a criação das instâncias é o Tomcat.
+- O Tomcat só irá instanciar as servlets de acordo com a necessidade! Além disso, ele instanciará apenas uma servlet de cada (singleton).
+- responsáevl por fazer a inversão de controle
+- Instância os servlet apenas quando são chamados
+- WAR é o ZIP de projetos Java Web, que você roda de dentro de um servidor como o Tomcat.
+- JAR é o ZIP para projetos comuns, que não são Web.
+### Deploy da Aplicação
+- Baixar tomcat
+- Deploy do arquivo .**war**
+- Botão direito no projeto > Export > WAR file
+- depois do projeto gerado, ele deve ser colocado em:
+    - pastado servidor apache > webapps
+- Vamos executar o apache pela linha de comando
+    - Entre no terminal na pasta onde esta o servidor apache
+    - cd bin
+    - startup.bat
+    - *O tomcat desempacota o jar e já sobe uma instância*
+- **Se acontece problema de versão, tipo: **(class file version 54.0)** *
+    - Vê versão compilada no eclipse
+        - Botão direito no projeto
+            - properties
+                - java compile
+    - Voce tem 2 opções para corrigir isso:
+        - Compilar novamente o projeto no eclipse
+        - Muda a variável de ambiente, Linux ou Windowse rodar novamente
+
+### muda URL da aplicação
+- Na pasta do tomcat 
+- vá em conf
+- abra o arquivo server.xml
+- Procure a porta 8080 e mude para 80
