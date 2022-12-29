@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h2>Cadastrar empresas</h2>
 	<form action="${linkNovaEmpresa}" method="post">
 		Nome: <input type="text" name="nome" /> <br />
 		Data abertura: <input type="text" name="data" /> <br />
