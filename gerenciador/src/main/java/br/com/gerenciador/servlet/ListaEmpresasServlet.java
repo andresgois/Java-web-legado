@@ -17,12 +17,13 @@ public class ListaEmpresasServlet extends HttpServlet {
 
 	// antes era = doGet
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    Banco b = new Banco();
 	    
+	    Banco b = new Banco();
 	    List<Empresa> lista = b.getEmpresas();
-	    RequestDispatcher rd = request.getRequestDispatcher("listaEmpresas.jsp");
-	        
+	    
 	    request.setAttribute("empresas", lista);
+
+	    RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresas.jsp");
 	    rd.forward(request, response);
 	   /* PrintWriter out = response.getWriter();
         out.println("<html>");
