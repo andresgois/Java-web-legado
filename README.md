@@ -182,3 +182,7 @@ rd.forward(request, response);
 - vá em conf
 - abra o arquivo server.xml
 - Procure a porta 8080 e mude para 80
+
+# Java Servlet: autenticação, autorização e o padrão MVC
+- o que é servlet
+    - Servlet é uma forma de atrelar uma requisição HTTP a um objeto Java!

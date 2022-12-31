@@ -1,7 +1,6 @@
 package br.com.alura.gerenciador.servlet;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,6 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.el.parser.ParseException;
+
+import br.com.alura.gerenciador.servlet.modelo.Banco;
+import br.com.alura.gerenciador.servlet.modelo.Empresa;
 
 @WebServlet("/alteraEmpresa")
 public class AlteraEmpresaServlet extends HttpServlet {

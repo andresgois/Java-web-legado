@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.alura.gerenciador.servlet.modelo.Banco;
+import br.com.alura.gerenciador.servlet.modelo.Empresa;
+
 @WebServlet("/listaEmpresas")
 public class ListaEmpresasServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

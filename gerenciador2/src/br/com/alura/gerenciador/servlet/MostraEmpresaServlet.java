@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.alura.gerenciador.servlet.modelo.Banco;
+import br.com.alura.gerenciador.servlet.modelo.Empresa;
+
 
 @WebServlet("/mostraEmpresa")
 public class MostraEmpresaServlet extends HttpServlet {
