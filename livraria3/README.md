@@ -1,1 +1,0 @@
-http://localhost:8080/jsf-livraria/livro.xhtml
