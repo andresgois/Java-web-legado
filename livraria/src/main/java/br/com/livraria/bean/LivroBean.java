@@ -1,10 +1,8 @@
 package br.com.livraria.bean;
 
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import br.com.livraria.dao.DAO;
 import br.com.livraria.modelo.Autor;
 import br.com.livraria.modelo.Livro;
@@ -23,6 +21,10 @@ public class LivroBean {
     public List<Autor> getAutores(){
         List<Autor> autores = new DAO<Autor>(Autor.class).listaTodos();
         return autores;
+    }
+    
+    public List<Autor> getAutoresDoLivro(){
+        return this.livro.getAutores();
     }
     
     public void gravarAutor() {
