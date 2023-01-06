@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 
 	<h:body>
 	<h1>Novo livro</h1>
 		<h:form>
 			<fieldset>
 				<legend>Dados do livro</legend>
-				<h:panelGrid columns="">
+				<h:panelGrid columns="2">
 					<h:outputLabel value="Titulo:" for="titulo" />
 					<h:inputText id="titulo" value="#{livroBean.livro.titulo}" />
 					<h:outputLabel value="ISBN:" for="isbn" />
@@ -18,8 +19,19 @@
 					<h:outputLabel value="Data Lançamento" for="dataLancamento" />
 					<h:inputText id="dataLancamento" value="#{livroBean.livro.dataLancamento}" />
 				</h:panelGrid>
-				<h:commandButton value="Gravar" action="#{livroBean.gravar}" />
 			</fieldset>
+			
+			<fieldset>
+				<legend>Dados do livro</legend>
+				<h:outputLabel value="Selecione Autor:" for="autor" />
+				<h:selectOneMenu value="#{livroBean.autorId}">
+                    <f:selectItems value="#{livroBean.autores}" var="autor"
+                        itemLabel="#{autor.nome}" itemValue="#{autor.id}" />
+                </h:selectOneMenu>
+				<h:commandButton value="Gravar Autor" action="#{livroBean.gravarAutor}" />
+			</fieldset>
+
+			<h:commandButton value="Gravar" action="#{livroBean.gravar}" />
 			
 		</h:form>
 	</h:body>	
