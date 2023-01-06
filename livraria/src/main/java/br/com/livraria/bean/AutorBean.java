@@ -18,6 +18,8 @@ public class AutorBean {
         System.out.println("Gravando: " + this.autor.getNome());
         
         new DAO<Autor>(Autor.class).adiciona(this.autor);
+        
+        this.autor = new Autor();
     }
     
 }
