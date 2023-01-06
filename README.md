@@ -186,3 +186,10 @@ rd.forward(request, response);
 # Java Servlet: autenticação, autorização e o padrão MVC
 - o que é servlet
     - Servlet é uma forma de atrelar uma requisição HTTP a um objeto Java!
+
+```
+select a.nome as Autor, l.titulo, l.preco from Livro_Autor la inner join Autor a on a.id = la.autores_id inner join Livro l on l.id = la.livro_id;
+```
+
+## Problemas com .jar
+- [Resolução](https://cursos.alura.com.br/forum/topico-resolucao-para-excecao-caused-by-javax-persistence-persistenceexception-persistenceunit-livraria-unable-to-build-entitymanagerfactory-141576)
