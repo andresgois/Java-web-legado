@@ -1,8 +1,16 @@
 package br.com.livraria.bean;
 
 import java.util.List;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
+import javax.faces.view.facelets.FaceletContext;
+import javax.validation.ValidationException;
+
 import br.com.livraria.dao.DAO;
 import br.com.livraria.modelo.Autor;
 import br.com.livraria.modelo.Livro;
@@ -23,6 +31,11 @@ public class LivroBean {
         return autores;
     }
     
+    public List<Livro> getLivros(){
+        List<Livro> livros = new DAO<Livro>(Livro.class).listaTodos();
+        return livros;
+    }
+    
     public List<Autor> getAutoresDoLivro(){
         return this.livro.getAutores();
     }
@@ -38,10 +51,13 @@ public class LivroBean {
         System.out.println("Gravando: "+this.livro.getTitulo());
         
         if(livro.getAutores().isEmpty()) {
-            throw new RuntimeException("Livro deve ter pelo menos um autor.");
+            //throw new RuntimeException("Livro deve ter pelo menos um autor.");
+            FacesContext.getCurrentInstance().addMessage("autor", new FacesMessage("Livro deve ter pelo menos um autor."));
         }
         
         new DAO<Livro>(Livro.class).adiciona(this.livro);
+        // aqui criamos um novo livro vazio pra limpar os campos e o id
+        this.livro = new Livro(); 
     }
 
     public Integer getAutorId() {
@@ -50,6 +66,13 @@ public class LivroBean {
 
     public void setAutorId(Integer autorId) {
         this.autorId = autorId;
+    }
+    
+    public void comecaComDigitoUm(FacesContext fc, UIComponent comp,  Object v) throws ValidatorException {
+        String valor = v.toString();
+        if(!valor.startsWith("1")){
+            throw new ValidatorException(new FacesMessage("Deveria começar com um"));
+        }
     }
     
 }
