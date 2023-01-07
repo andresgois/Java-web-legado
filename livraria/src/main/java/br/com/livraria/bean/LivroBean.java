@@ -75,4 +75,9 @@ public class LivroBean {
         }
     }
     
+    public String formAutor() {
+        System.out.println("Chamada ao formulário do autor");
+        return "autor?faces-redirect=true";
+    }
+    
 }
