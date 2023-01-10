@@ -55,7 +55,11 @@ public class LivroBean {
             FacesContext.getCurrentInstance().addMessage("autor", new FacesMessage("Livro deve ter pelo menos um autor."));
         }
         
-        new DAO<Livro>(Livro.class).adiciona(this.livro);
+        if( livro.getId() == null) {
+            new DAO<Livro>(Livro.class).adiciona(this.livro);
+        } else {
+            new DAO<Livro>(Livro.class).atualiza(livro);
+        }
         // aqui criamos um novo livro vazio pra limpar os campos e o id
         this.livro = new Livro(); 
     }
@@ -80,4 +84,17 @@ public class LivroBean {
         return "autor?faces-redirect=true";
     }
     
+    public void remover(Livro livro) {
+        System.out.println("Removendo livro");
+        new DAO<Livro>(Livro.class).remove(livro);
+    }
+    
+    public void alterar(Livro livro) {
+        System.out.println("Editando livro");
+        this.livro = livro;
+    }
+    
+    public void removerAutorDoLivro(Autor autor) {
+        this.livro.removeAutor(autor);
+    }
 }
