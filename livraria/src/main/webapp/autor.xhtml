@@ -6,6 +6,12 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 	<ui:composition template="_template.xhtml">
+		
+		<f:metadata>
+			<f:viewParam name="autorId" value="#{autorBean.autorId}" />
+			<f:viewAction action="#{autorBean.carregarAutorPelaId}" if="#{param.autorId != null}"/>
+		</f:metadata>
+	
 		<ui:define name="titulo">Novo Autor</ui:define>
 		
 		<ui:define name="conteudo">
