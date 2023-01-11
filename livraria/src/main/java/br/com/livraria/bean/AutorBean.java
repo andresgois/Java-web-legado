@@ -1,7 +1,6 @@
 package br.com.livraria.bean;
 
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -57,5 +56,10 @@ public class AutorBean {
     public void setAutorId(Integer autorId) {
         this.autorId = autorId;
     }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
+    
     
 }
