@@ -10,5 +10,9 @@
 		<phase-listener>
 			br.com.livraria.util.LogPhaseListener
 		</phase-listener>
+		<phase-listener>
+			br.com.livraria.util.Autorizador
+		</phase-listener>
+		
 	</lifecycle>
 </faces-config>
