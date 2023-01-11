@@ -5,37 +5,57 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-	<ui:composition template="_template.xhtml">
-		
-		<f:metadata>
-			<f:viewParam name="autorId" value="#{autorBean.autorId}" />
-			<f:viewAction action="#{autorBean.carregarAutorPelaId}" if="#{param.autorId != null}"/>
-		</f:metadata>
-	
-		<ui:define name="titulo">Novo Autor</ui:define>
-		
-		<ui:define name="conteudo">
+<ui:composition template="_template.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="autorId" value="#{autorBean.autorId}" />
+		<f:viewAction action="#{autorBean.carregarAutorPelaId}"
+			if="#{param.autorId != null}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Novo Autor</ui:define>
+
+	<ui:define name="conteudo">
 		<h:form>
 			<fieldset>
 				<legend>Dados do Autor</legend>
-				<h:panelGrid columns="">
+				<h:panelGrid columns="2">
 					<h:outputLabel value="Nome:" for="nome" />
-					<h:inputText id="nome" value="#{autorBean.autor.nome}" />
-					
+					<h:inputText id="nome" value="#{autorBean.autor.nome}"
+						rendered="true">
+						<f:validateLength minimum="5" />
+					</h:inputText>
+
+					<h:outputLabel value="E-mail:" for="email" />
+					<h:inputText id="email" value="#{autorBean.autor.email}"
+						required="true" requiredMessage="O email é obrigatório">
+						<f:passThroughAttribute name="type" value="email" />
+						<f:passThroughAttribute name="required" value="true" />
+						<f:passThroughAttribute name="placeholder"
+							value="Entre com seu email" />
+						<f:ajax execute="@form" render="messageEmail" />
+					</h:inputText>
+
+					<h:message for="email" id="messageEmail" />
+
 					<h:commandButton value="Gravar" action="#{autorBean.gravar}">
-						<f:ajax execute="@form" render="@form :formTabelaAutor:tabelaAutor"  />
+						<f:ajax execute="@form"
+							render="@form :formTabelaAutor:tabelaAutor" />
 					</h:commandButton>
 				</h:panelGrid>
 			</fieldset>
-			
+
 		</h:form>
-		
+
 		<h:form id="formTabelaAutor">
-			<h:dataTable value="#{autorBean.autores}" var="aut"
-				id="tabelaAutor">
+			<h:dataTable value="#{autorBean.autores}" var="aut" id="tabelaAutor">
 				<h:column>
 					<f:facet name="header">Nome Autor</f:facet>
 					<h:outputText value="#{aut.nome}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">E-mail</f:facet>
+					<h:outputText value="#{aut.email}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">Alterar</f:facet>
@@ -47,8 +67,8 @@
 				</h:column>
 			</h:dataTable>
 		</h:form>
-		
-		</ui:define>
-	</ui:composition>
-	
+
+	</ui:define>
+</ui:composition>
+
 </html>
