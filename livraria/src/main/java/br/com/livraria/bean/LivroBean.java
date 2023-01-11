@@ -8,9 +8,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-import javax.faces.view.facelets.FaceletContext;
-import javax.validation.ValidationException;
-
 import br.com.livraria.dao.DAO;
 import br.com.livraria.modelo.Autor;
 import br.com.livraria.modelo.Livro;
