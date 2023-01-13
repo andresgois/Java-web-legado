@@ -52,6 +52,7 @@ mysql -h localhost -u andre -p
 - uso de componentes
 - desenvolvimento orientado ao evento
 - desenvolvimento stateful
+- O servlet JSF tem o papel do controlador.
 ##### Implemantações dessa especificação
 - Mojarra (Implementação referencial)
 - Apache MyFaces
@@ -92,7 +93,9 @@ mysql -h localhost -u andre -p
     - em *Type* coloque disable
     - em *URL Mapping pattenrs* coloque *.xhtml
 - .JAR
-    - todos os .jars devem fica em WEB-INF > lib 
+    - todos os .jars devem fica em WEB-INF > lib
+
+##### ATENÇÃO: Se você estiver usando MS-Windows, altere a propriedade encoding="ISO-8859-1" do cabeçalho do arquivo .xhtml para encoding="UTF-8"
 
 ##### Todo o mapeamento é feito pelo Faces Servlet
 - Ao enviar a requisição é delegado o fluxo para a servlet
@@ -109,40 +112,68 @@ mysql -h localhost -u andre -p
     Controlador->>livro.xhtml: resposta
 ```
 
-## Anotações
-- *Indica que a classe será gerenciada pelo JSF*
-> @ManagedBean
-##
-```mermaid
-    sequenceDiagram
-    Alice->>John: Hello John, how are you?
-    loop Healthcheck
-        John->>John: Fight against hypochondria
-    end
-    Note right of John: Rational thoughts!
-    John-->>Alice: Great!
-    John->>Bob: How about you?
-    Bob-->>John: Jolly good!
-```
-##
+### Classe Livro e LivroBean
+- **Livro**: Responsabilidade de cadastrar um livro
+    - atributos, getters e setters
+- **LivroBean**: Responsabilidade de ser um livro
+    - getter que busca o livro da classe Livro
+
+### Model View Controller
 
 ```mermaid
   graph TD;
-      Chrome == request ==>Servlet;
-      subgraph tomcat
-        subgraph /gerenciador
-            Servlet -- Dispatcher --> JSP
-        end
-      end
-      JSP == response ==>Chrome
+    Formulario ==> |Requisição| Controlador
+    Controlador ==> | Resposta| Formulario
 
-      style Chrome fill:#ffff80,stroke:#000000,stroke-width:2px,color:#000000
-      style JSP fill:#c0c0c0,color:#000000,stroke:#000000
-      style Servlet fill:#c0c0c0,color:#000000,stroke:#000000
-      style tomcat fill:#ffffff,color:#000000
-      style /gerenciador fill:#ffffff,color:#000000, stroke:#000000,stroke-width:2px
+    subgraph Localhost
+        subgraph Livraria
+            Controlador --> |Faces servlet| livro.xhtml
+            Controlador --> |Faces servlet| autor.xhtml
+
+            subgraph Visao
+                livro.xhtml <--> LivroBean
+                autor.xhtml <--> AutorBean
+            end
+
+            subgraph Model
+                Livro <--> LivroBean
+                Autor <--> AutorBean
+            end
+
+            JPA <==> AutorBean
+            JPA <==> LivroBean
+        end
+    end
+
+
+      style Formulario fill:#ffff80,stroke:#000000,stroke-width:2px,color:#000000
+      style Visao fill:#c0c0c0,color:#000000,stroke:#000000
+      style Localhost fill:#ffffff,color:#000000
+      style Livraria fill:#ffffff,color:#000000, stroke:#000000,stroke-width:2px
+```
+### Ciclo de vida dos componentes JSF
+- controlador instância os componentes declarados
+- Árvore de componentes
+    - criada apenas na primeira requisição
+    - fica guardada na sessão http do usuário
+
+
+```mermaid
+    flowchart TD
+        id1((h:body)) --- id2((h:form))
+        id1((h:body)) --- id3(( ))
+        id2((h:form)) --- id4((h:inputText))
+        id2((h:form)) --- id5((h:inputPassword))
+        id2((h:form)) --- id6(( ))
 ```
 
+- O modelo arquitetural o JSF se baseia é o MVC
+
+![Arquitetura](../img/02_arquitetura.png)
+
+### Anotações
+- Indica que a classe será gerenciada pelo JSF
+    - **@ManagedBean**
 ## Acesso aplicação
 - http://localhost:8080/jsf-livraria/livro.xhtml
 - http://localhost:8080/jsf-livraria/autor.xhtml
