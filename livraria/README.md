@@ -171,6 +171,90 @@ mysql -h localhost -u andre -p
 
 ![Arquitetura](../img/02_arquitetura.png)
 
+### Lidando com escopos
+- A vida do managedBean dura apenas um request
+    - **@RequestScoped**
+- Queremo que o livroBean exista emquanto a tela existir
+    - **@ViewScoped**
+    - Sobrevive por vários request
+- O **h:selectOneMenu** é o componente próprio para a renderização de um combobox.
+- Adicionamos o componente **f:selectItems** dentro do **h:selectOneMenu**, e usamos os atributos value, var, itemLabel e itemValue para respectivamente, recuperar os autores provindos do managed bean, nomear a variável que representará o autor, definir o texto que será mostrado nas opções e o valor das opções.
+- Por padrão um ManagedBean adota o escopo da requisição **(@RequestScoped)**.
+- Além dos escopos de requisição (@RequestScoped) e da tela (@ViewScoped) JSF também dá suporte ao escopo da sessão (@SessionScoped) e escopo da aplicação (@ApplicationScoped), tudo configurável pelas anotações.
+- Utilizamos o componente h:dataTable referenciando a lista de dados pelo atributo value. Dentro do h:dataTable, utilizamos o h:column para definir as colunas que existirão na nossa tabela. No nosso exemplo, utilizamos também o h:outputText para renderizar os dados do autor dentro do h:column. Por exemplo:
+```
+<h:dataTable value="#{livroBean.autoresDoLivro}" var="autor">
+    <h:column>
+        <h:outputText value="#{autor.nome}"/>
+    </h:column>
+</h:dataTable>
+```
+### Conversão e validação de dados
+- Para manipulação de datas
+- Com essa anotação será gravado apenas a data
+```
+@Temporal(TemporalType.DATE)
+private Calendar dataLancamento = Calendar.getInstance();
+```
+- Definindo o formato de conversão que o JSF deve utilizar
+- Deve ser usado o componente f:convertDateTime para formatar a data, porém o conversor sabe lidar apenas com objetos do tipo java.util.Date. Por isso, devemos fazer um binding para #{livroBean.livro.dataLancamento.time}, onde time corresponde ao método getTime() da classe Calendar, que retorna um objeto do tipo java.util.Date.
+
+- Devemos também definir um pattern. No nosso caso queremos dia/mês/ano então usaremos dd/MM/yyyy
+```
+<h:inputText id="dataLancamento"
+    value="#{livroBean.livro.dataLancamento.time}">
+    <f:convertDateTime pattern="dd/MM/yyyy"
+        timeZone="America/Sao_Paulo" />
+</h:inputText>
+```
+- Trabalhar com datas usando Calendar é muito mais fácil. É uma classe especializada para este dominio. Para criar uma instancia do tipo Calendar usaremos:
+```
+Calendar data = Calendar.getInstance()
+```
+Se quisermos ignorar o horário no banco de dados, podemos adicionar a anotação JPA **@Temporal**, passando como parâmetro a enum TemporalType.Date
+
+#### Mensagens de validação
+- A tag ```<h:messages />``` retorna todos os erros ocorridos na página
+- Para que o erro seja exibido na mensagem, por exemplo temos que definir o campo como ```required="true"```.
+- Se quisermos pesonalizar a mesagem, basta adicionar ```requiredMessage="Titulo obrigatório"``` com sua mensagem.
+- Existem também os validadores como ```<f:validateLength maximum="40" />``` que define o tamanho máximo do campo, entre outros validadores.
+#### **Validador personalizado**
+- Valida se o valor informado começa com "1".
+```
+public void comecaComDigitoUm(FacesContext fc, UIComponent comp,  Object v) throws ValidatorException {
+        String valor = v.toString();
+        if(!valor.startsWith("1")){
+            throw new ValidatorException(new FacesMessage("Deveria começar com um"));
+        }
+    }
+```
+- O atributo validator faz a associação do input com o método no **bean**
+```
+<h:inputText id="isbn" value="#{livroBean.livro.isbn}"
+						validator="#{livroBean.comecaComDigitoUm}" />
+```
+
+### Validando preço
+- O campo preço no cadastro de livros da página livro.xhtml aceita valor zerado e valores extremamente grandes. Utilize o validador f:validateDoubleRange para aceitar um valor mínimo de R$ 1,00 e máximo de R$ 1.000,00. Lembre-se que este validador possui dois atributos: minimum e maximum.
+
+- O validador é aplicado para o componente h:inputText do preço:
+```
+<h:inputText id="preco" value="#{livroBean.livro.preco}" label="Preço">
+  <f:validateDoubleRange minimum="1.0" maximum="1000.00"/>
+</h:inputText>
+```
+
+### retornando um faces message no lugar de um throw
+- Pegamos uma referência do contexto no momento da chamada
+- Adicionamos uma mensagem através do addMessage, que recebe 2 parâmetros
+    - client id,  ID definido no xhtml do componente
+    - um objeto do tipo FacesMessage que recebe no construtor a messagem que sera mostrada.
+```
+FacesContext
+    .getCurrentInstance()
+    .addMessage("autor", new FacesMessage("Livro deve ter pelo menos um autor."));
+```
+
 ### Anotações
 - Indica que a classe será gerenciada pelo JSF
     - **@ManagedBean**
