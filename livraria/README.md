@@ -255,6 +255,58 @@ FacesContext
     .addMessage("autor", new FacesMessage("Livro deve ter pelo menos um autor."));
 ```
 
+### Páginas mais dinâmicas com AJAX
+- Enviar apenas uma parte do formulário
+
+```mermaid
+  graph TD
+
+    subgraph FormularioCompleto
+        subgraph FormularioLivro
+            formularioLivro
+        end
+        subgraph FormularioAutor
+            formularioAutor
+            gravarAutor
+        end
+        Gravar
+    end
+
+    gravarAutor ==> |Request| arvoreDeComponentes
+    arvoreDeComponentes ==> |Response| gravarAutor
+
+     subgraph BackEnd
+        subgraph ArvoreDeComponentes
+            arvoreDeComponentes
+        end
+        subgraph ManagedBean_ViewScoped
+            LivroBean
+        end
+        Gravar
+    end
+
+
+      style Formulario fill:#ffff80,stroke:#000000,stroke-width:2px,color:#000000
+      style Visao fill:#c0c0c0,color:#000000,stroke:#000000
+      style Localhost fill:#ffffff,color:#000000
+      style Livraria fill:#ffffff,color:#000000, stroke:#000000,stroke-width:2px
+```
+- **execute** diz o ID de qual compoenete que queremos enviar na requisição
+- **render** id dos componentes que queremos atualizar
+- Necessário colocar o ```<h:head />``` no começo da página
+```
+<h:commandButton value="Gravar Autor"
+    action="#{livroBean.gravarAutor}">
+    <f:ajax execute="autor" render="tabelaAutores" />
+</h:commandButton>
+```
+- o uso apropriado de requisições AJAX possibilita uma comunicação mais rápida com o servidor, dado que o mesmo só precisará responder com a parte da página que irá realmente mudar.
+- Como o AJAX depende diretamente de JavaScript, é necessário que o JSF importe sua própria biblioteca JavaScript. Isso só será feito, caso o componente h:head esteja presente.
+
+
+
+
+
 ### Anotações
 - Indica que a classe será gerenciada pelo JSF
     - **@ManagedBean**
