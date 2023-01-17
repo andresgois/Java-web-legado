@@ -303,7 +303,110 @@ FacesContext
 - o uso apropriado de requisições AJAX possibilita uma comunicação mais rápida com o servidor, dado que o mesmo só precisará responder com a parte da página que irá realmente mudar.
 - Como o AJAX depende diretamente de JavaScript, é necessário que o JSF importe sua própria biblioteca JavaScript. Isso só será feito, caso o componente h:head esteja presente.
 
+### Fases do ciclo de vida
 
+![Ciclo de vida](../img/03_ciclo_de_vida.png)
+
+```
+<lifecycle>
+    <phase-listener>
+        br.com.livraria.util.LogPhaseListener
+    </phase-listener>		
+</lifecycle>
+```
+![Ciclo de vida](../img/04_ciclo_de_vida.png)
+
+- Implementar a classe PhaseListener
+- Mostra as fases em que os requests acontecem
+
+```
+public class LogPhaseListener implements PhaseListener{
+
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    public void afterPhase(PhaseEvent arg0) { }
+
+    @Override
+    public void beforePhase(PhaseEvent event) {
+        System.out.println("FASE: "+event.getPhaseId());
+    }
+    @Override
+    public PhaseId getPhaseId() {s
+        return PhaseId.ANY_PHASE;
+    }
+}
+```
+- Ao receber um requisição http do tipo GET, o controlador iniciou o ciclo de vida da tela.
+- leu o xhtml
+- instânciou todos os componentes
+- como foi a requisição inicial, fica claro que não tem nada a se fazer a não ser renderizar a resposta.
+
+![Ciclo de vida](../img/05_ciclo_de_vida.png)
+
+- A camada do controlador recebe todas as requisições e decide que tela ou árvore de componentes utilizar.
+
+- **RESTORE VIEW**
+    - Apenas recupera a árvore de elementos
+- **APPLY REQUEST VALUES**
+    - Recebe os valores digitados
+- **PROCESS VALIDATIONS**
+    - Conversão ou validação, se tiver erro pula as fases 4 e 5
+- **UPDATE MODEL VALUES**
+    - Modelo atualizado com base no request anterior, tudo de EL é atualizado
+- **INVOKE APPLICATION**
+    - Executa o comando Ex: gravarAutor()
+- **RENDER RESPONSE**
+    - Devolve a resposta
+
+- Clicar no link para ir para outra página
+- **immediate=true**
+    - Fará que o link seja executado na fase *APPLY REQUEST VALUES*
+- Redirecionamento no lado do servidor (forward)
+- action chama um método no bean que redireciona a página para a página do autor
+```
+<h:commandLink value="Cadastrar novo autor"
+	action="#{livroBean.formAutor}" immediate="true" />
+```
+- 
+```
+public String formAutor() {
+    return "autor?faces-redirect=true";
+}
+```
+- O padrão JSF é redirecionar para página no lado do servidor. Para chamar a página pelo navegador, ou seja enviar uma segunda requisição é preciso adicionar no retorno o parâmetro faces-redirect=true
+
+> Redirecionamento no lado do servidor (forward)
+
+![Redirecionamento](../img/06_ciclo_de_vida.png)
+
+1) O cliente dispara uma requisição (submete o formulário) para o controlador;
+
+2) O método formAutor() é chamado pelo controlador que armazena seu retorno;
+
+3) O controlador utilizará a String retornada pelo método para buscar a View que deverá ser renderizada. Ao encontrá-la, ele irá realizar o processo de renderização;
+
+4) Após a renderização, o seu HTML será retornado como resposta da requisição feita pelo usuário no passo 1 (a submissão do formulário).
+
+- Como toda requisição deve haver uma resposta, ao submetermos o formulário também precisamos de uma resposta. Só que nesse caso a resposta será o HTML de uma outra página. Por conta disso, o navegador nem sequer percebe que houve uma mudança de página e a URL na barra de endereços continua a mesma de antes da submissão.
+
+> Redirecionamento no lado do cliente (redirect)
+![Redirecionamento cliente](../img/06_ciclo_de_vida.png)
+1) O cliente dispara uma requisição (submete o formulário) para o controlador;
+
+2) O método formAutor() é chamado pelo controlador;
+
+3) O Controlador do JSF retorna a resposta ao navegador com o status 302 (moved temporarily). Esse código diz ao browser que ele precisará acessar a URL contida no header location da resposta.
+
+4) O navegador, portanto, irá acessar a página contida no header Location
+
+5) O controlador identifica a View e realiza o processo de renderização
+
+6) O HTML da página é retornado ao browser.
+
+- Dessa forma o próprio navegador fica responsável por realizar o redirecionamento acessando outra página e por conta disso, a URL da barra de endereços é a da nova página que recebemos como resposta.
+
+- Podemos citar alguma vantagem em utilizar o redirecionamento no lado do cliente ao submeter um formulário de cadastro? Pesquise sobre a técnica Always redirect after Post e responda com suas próprias palavras.
 
 
 
