@@ -408,6 +408,70 @@ public String formAutor() {
 
 - Podemos citar alguma vantagem em utilizar o redirecionamento no lado do cliente ao submeter um formulário de cadastro? Pesquise sobre a técnica Always redirect after Post e responda com suas próprias palavras.
 
+### Templates reutilizáveis com Facelets
+- Por padrão, no JSF 2.0, imagens, scripts e arquivos de CSS devem estar dentro de um diretório chamado resources, que fica dentro da pasta WebContent.
+
+```mermaid
+    flowchart TD
+
+    subgraph Facelets Template
+        A[_template.xhtml] --> B(livro.xhtml)
+        A[_template.xhtml] --> C(autor.xhtml)
+    end
+```
+
+- **graphicImage** para adicionar imagens
+- **library** nome da pasta que ficará armazenadas as imagens
+- **ui:insert** :Esta tag indicará para as páginas que utilizarem o template que há uma área com name titulo que pode ser preenchida.
+
+```
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	
+	<h:head />
+	
+	<h:body>
+		<div id="cabecalho">
+			<h:graphicImage library="img" name="logo.png" width="200" height="100" />
+			
+			<h:form rendered="#{usuarioLogado != null}">
+				<h:commandLink value="logout" action="#{loginBean.deslogar}" />
+			</h:form>
+			<h1>
+				<ui:insert name="titulo"></ui:insert>
+			</h1>
+		</div>
+		
+		<div id="conteudo">
+			<ui:insert name="conteudo"></ui:insert>
+		</div>
+	</h:body>
+</html>
+```
+> Associação da página com o template
+- O namespace utilizado para importar a biblioteca de facelets é xmlns:ui="http://java.sun.com/jsf/facelets".
+- A associação é feita envolvendo todo o conteúdo da página que importará o template pela tag ui:composition, indicando pelo atributo template, o template a ser associado.
+
+```
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+    <ui:define name="titulo">
+            Novo Livro
+    </ui:define>
+    <ui:define name="conteudo">
+                <!--codigo omitido -->
+    </ui:define>
+</ui:composition>
+</html>         
+```
 
 
 ### Anotações
