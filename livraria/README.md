@@ -473,6 +473,36 @@ public String formAutor() {
 </html>         
 ```
 
+#### Implementando a exclusão
+```
+<h:column>
+    <f:facet name="header">Remover</f:facet>
+    <h:commandLink value="Remover" action="#{livroBean.remover(livro)}" />
+</h:column>
+```
+
+#### Ajustando o relacionamento
+- O problema está no relacionamento dos livros com os seus autores. Um livro pode ter muitos autores, e um autor pode escrever vários livros, por isso a relação deles é de many-to-many (muitos para muitos). No Hibernate, qualquer relação *ToMany é LAZY, isso porque essas relações *toMany são provavelmente mais custosas, trazendo mais objetos para a memória. Ok, mas o que isso interfere no nosso projeto?
+
+- Isso significa que quando carregamos os livros, os autores não são carregados ao mesmo tempo. Ou seja, quando clicamos em "Alterar", conseguimos carregar os dados do livro, mas não os do autor! Por isso ocorre a exceção.
+
+- Para resolver isso, podemos dizer para o Hibernate para, quando carregar um livro, automaticamente carregar os seus autores, ou seja, ao invés de LAZY, queremos que a relação seja EAGER. Então lá na classe Livro, adicionamos essa opção na anotação:
+
+- O erro LazyInitializationException pode acontecer quando tentarmos acessar um relacionamento não inicializado. Uma das primeiras formas (existem outras, inclusive mais elegantes) é alterar o tipo de relacionamento seja @ManyToMany ou OneToMany. Essa alteração diz respeito ao tipo de busca que é realizada. O padrão é preguiçoso, contudo, se quisermos alterá-lo para um carregamento do tipo ansioso fazemos:
+```
+@ManyToMany(fetch=FetchType.EAGER)
+private List<Autor> autores = new ArrayList<Autor>();
+```
+
+- Repare que esse método faz muito pouca coisa, é apenas um atribuição do parâmetro livro para o atributo this.livro (parecido com um setter). Há um atalho para tal atribuição que JSF oferece. Podemos usar o componente f:setPropertyActionListener com o mesmo efeito:
+```
+<h:commandLink value="Alterar" >
+    <f:setPropertyActionListener target="#{livroBean.livro}" value="#{livro}" />
+</h:commandLink>COPIAR CÓDIGO
+```
+- Repare que o h:commandLink não possui o atributo action. A ação é definida pelo componente f:setPropertyActionListener.
+- O comando f:setPropertyActionListener deve ficar dentro da tag h:commandLink
+- Assim não precisamos do método carregar, mas é preciso implementar o setter para o atributo livro pois o atributo target exige o setLivro no LivroBean.
 
 ### Anotações
 - Indica que a classe será gerenciada pelo JSF
