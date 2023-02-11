@@ -199,3 +199,6 @@ select a.nome as Autor, l.titulo, l.preco from Livro_Autor la inner join Autor a
 
 ## Problemas com .jar
 - [Resolução](https://cursos.alura.com.br/forum/topico-resolucao-para-excecao-caused-by-javax-persistence-persistenceexception-persistenceunit-livraria-unable-to-build-entitymanagerfactory-141576)
+
+## CURSO -Java e JPA: Persista seus objetos com a JPA2 e Hibernate
+- [Java e JPA: Persista seus objetos com a JPA2 e Hibernate](./Java_JPA_Persista%20seus%20objetos%20com%20a%20JPA2%20e%20Hibernate.md)
