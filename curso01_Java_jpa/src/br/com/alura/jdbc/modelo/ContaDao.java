@@ -24,7 +24,7 @@ public class ContaDao {
 			ps.setLong(2, conta.getNumero());
 			ps.setString(3, conta.getTitular());
 			
-			ps.execute();
+			ps.execute(); // REGRA DE NEGÓCIO
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
