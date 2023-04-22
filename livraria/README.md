@@ -171,6 +171,7 @@ mysql -h localhost -u andre -p
 
 ![Arquitetura](../img/02_arquitetura.png)
 
+
 ### Lidando com escopos
 - A vida do managedBean dura apenas um request
     - **@RequestScoped**
@@ -508,5 +509,6 @@ private List<Autor> autores = new ArrayList<Autor>();
 - Indica que a classe será gerenciada pelo JSF
     - **@ManagedBean**
 ## Acesso aplicação
+- Principal 
 - http://localhost:8080/jsf-livraria/livro.xhtml
 - http://localhost:8080/jsf-livraria/autor.xhtml

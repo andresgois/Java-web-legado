@@ -61,5 +61,9 @@ public class AutorBean {
         this.autor = autor;
     }
     
+    public String formTeste() {
+        System.out.println("Chamada ao formulário do autor");
+        return "teste?faces-redirect=true";
+    }
     
 }

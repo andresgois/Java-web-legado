@@ -1,0 +1,32 @@
+body{
+	width:400px;height:200px;
+    /*gradient background color */
+    background: #0071a0; /* Old browsers */
+    background: -moz-linear-gradient(left,  #0071a0 1%, #ff0000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(1%,#0071a0), color-stop(100%,#ff0000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #0071a0 1%,#00a3ca 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #0071a0 1%,#ff0000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #0071a0 1%,#ff0000 100%); /* IE10+ */
+    background: linear-gradient(to right,  #0071a0 1%,#ff0000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0071a0', endColorstr='#ff0000',GradientType=1 ); /* IE6-9 */
+    
+}
+
+
+
+
+
+/* #loginPanel{ */
+/* 	width: 25%; */
+/* 	border: 2px solid black; */
+/* 	background: rgb(0, 0, 0); For browsers that do not support gradients */
+/* 	filter:alpha(opacity=20); */
+/* } */
+
+/* .grad { */
+/*   background: rgb(0, 153, 51); For browsers that do not support gradients */
+/* } */
+
+/* img, label,input,button{ */
+/* 	filter:alpha(opacity=100); */
+/* } */

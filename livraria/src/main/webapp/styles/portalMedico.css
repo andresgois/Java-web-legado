@@ -1,0 +1,70 @@
+html {
+  height: 100%;
+}
+body {
+	height: 100%;
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(rgb(0, 153, 51),white 80%); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(rgb(0, 153, 51),white 80%); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(rgb(0, 153, 51),white 80%); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(rgb(0, 153, 51),white 80%)); /* Standard syntax */
+ 
+}
+.ui-datatable-header{
+     background: rgba(255, 255, 255, 0.5)!important;
+     border-radius: 15px 15px 0px 0px;
+ }
+ 
+.ui-datatable-data {
+    background:none;
+} 
+
+.ui-datatable-odd {
+    background:  rgba(255, 255, 255, 0.5)!important;
+}
+
+
+.ui-datatable-even {
+    background:  rgba(255, 255, 255, 0.8)!important;
+}
+
+ #outputTextPortalTitle{
+  font-size: 200%;
+  color: black
+ }
+  
+ #outputTextNomeMedico{
+  font-size: 150%;
+  color: #e6e6e6;
+  padding-left:10px;
+ }
+ 
+ .tituloTabela{
+	 float:left;
+	 font-size: 120%; 
+	 padding-top:4px;
+ }
+
+ .ui-state-hover{
+ 	font-size: 120%;
+ 	font-color: red;
+ 	foreground-color: green;
+ }
+ 
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+
+.padding-sm {
+   padding: 2px !important;
+   margin: 0 !important;
+}
+
+
+.padding-md {
+   padding: 5px !important;
+   margin: 0 !important;
+}

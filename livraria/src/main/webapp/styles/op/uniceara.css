@@ -1,0 +1,13 @@
+.top-navbar {
+	background-color: green  !important;
+}
+
+.pagination > li.active > a {
+  background-color: green;
+}
+
+#logo {
+	background-image: url("../../imagens/logo_operadora_ce.png");
+	background-repeat: no-repeat;
+	background-size: 100% 80%;
+}

@@ -3,16 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="_template.xhtml">
 
 	<ui:define name="titulo">Login</ui:define>
 
 	<ui:define name="conteudo">
-	
-	<h:messages globalOnly="true" />
-	
+
+		<h:messages globalOnly="true" />
+
 		<h:form id="login">
 			<fieldset>
 				<legend>Login</legend>
@@ -20,13 +21,15 @@
 				<h:panelGrid columns="1">
 
 					<h:outputLabel value="E-mail:" for="email" />
-					<h:inputText id="email" value="#{loginBean.usuario.email}" required="true">
+					<h:inputText id="email" value="#{loginBean.usuario.email}"
+						required="true">
 						<f:passThroughAttribute name="type" value="email" />
 					</h:inputText>
 					<h:message for="email" id="messageEmail" />
 
 					<h:outputLabel value="Senha:" for="senha" />
-					<h:inputText id="senha" value="#{loginBean.usuario.senha}" required="true">
+					<h:inputText id="senha" value="#{loginBean.usuario.senha}"
+						required="true">
 						<f:passThroughAttribute name="type" value="password" />
 					</h:inputText>
 					<h:message for="senha" id="messageSenha" />
@@ -37,8 +40,53 @@
 				action="#{loginBean.efetuarLogin}" />
 
 		</h:form>
+		<script>
+			//<![CDATA[
+			function start() {
+				PF('statusDialog').show();
+			}
+
+			function stop() {
+				PF('statusDialog').hide();
+			}
+			//]]>
+		</script>
+
+		<h:panelGrid>
+			<div class="card">
+				<h:outputLabel>Download PDF</h:outputLabel>
+				<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+					draggable="false" closable="false" resizable="false">
+					<i class="pi pi-spinner pi-spin" style="font-size: 3rem"></i>
+				</p:dialog>
+
+				<h:form>
+					<p:commandButton value="Download" ajax="false"
+						onclick="PrimeFaces.monitorDownload(start, stop);"
+						icon="pi pi-arrow-down" styleClass="mr-2">
+						<p:fileDownload value="#{fileDownloadView.file}" />
+					</p:commandButton>
+
+					<p:commandButton value="Ajax Download" icon="pi pi-arrow-down"
+						styleClass="ui-button-outlined">
+						<p:fileDownload value="#{fileDownloadView.file}" />
+					</p:commandButton>
+					<h:commandLink value="Download"
+						action="#{fileDownloadView.download}" />
+						
+						
+					<p:commandButton immediate="true" value="Download do Edital" ajax="false"
+						onclick="PrimeFaces.monitorDownload(start, stop);"
+						icon="ui-icon-arrowthick-1-s">
+						<p:fileDownload value="#{fileDownloadView.file}" />
+					</p:commandButton>
+				</h:form>
+			</div>
+		</h:panelGrid>
+
 
 	</ui:define>
 </ui:composition>
+
 
 </html>

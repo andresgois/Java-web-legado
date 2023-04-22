@@ -37,6 +37,10 @@
 					</h:inputText>
 
 					<h:message for="email" id="messageEmail" />
+					
+					<br />
+				<h:commandLink value="Página de testes"
+					action="#{autorBean.formTeste}" immediate="true" />
 
 					<h:commandButton value="Gravar" action="#{autorBean.gravar}">
 						<f:ajax execute="@form"
