@@ -1,0 +1,75 @@
+/* https://stackoverflow.com/questions/37673280/print-div-with-css */
+@media print {
+	body {
+		visibility: hidden;
+	}
+	html, body {
+		position: absolute;
+		left: 0;
+		top: 0;
+		padding: 0;
+	}
+	footer {
+		display: none;
+	}
+	@page {
+		position: absolute;
+		left: 0;
+		top: 0;
+		margin: 0;
+		padding: 0;
+		width: 210mm;
+		height: 297mm;
+	}
+	#conteudo * {
+		visibility: visible;
+		left: 0;
+		top: 0;
+		margin: auto;
+	}
+	#conteudo>input {
+		display: none;
+	}
+	#conteudo {
+		position: absolute;
+		left: 0;
+		top: 0;
+		margin: 50px;
+		padding: 0;
+		min-width: 80%;
+	}
+	p {
+		display: none;
+	}
+		
+	.card {
+		all: unset;
+		margin: 50px;
+	}
+	
+	.card-title {
+		font-family: Arial, sans-serif;
+		font-weight: bold !important;
+		text-align: left;
+		display: block !important;
+		clear: both;
+	}	
+	
+	.row > .col {
+	clear: both;
+	}
+	
+	.row > .col > .col > label {
+	display: inline-block !important;
+	float: left;
+	margin: 0px 10px !important;
+	}
+	
+	.col > input {
+		display: none;
+	}
+	
+	#aceite:previsualizacaoMessage {
+		display: none;
+	}
+}
