@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Conta {
@@ -20,8 +22,7 @@ public class Conta {
     @Column(name = "saldo")
     private Double saldo;
     
-    
-    public Conta() {}
+   	public Conta() {}
     
     public Conta(Long id, String titular, Integer agencia, Integer numero,
             Double saldo) {

@@ -1,10 +1,11 @@
-package andresgois.github.io.dao;
+package andresgois.github.io.dao.deprecated;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import andresgois.github.io.to.UsuarioTO;
+
+import andresgois.github.io.todeprecated.UsuarioTO;
 
 public class UsuarioPostgresqlDAO {
     

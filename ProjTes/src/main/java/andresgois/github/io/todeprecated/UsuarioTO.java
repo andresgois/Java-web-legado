@@ -1,4 +1,4 @@
-package andresgois.github.io.to;
+package andresgois.github.io.todeprecated;
 
 import java.io.Serializable;
 import java.lang.Integer;

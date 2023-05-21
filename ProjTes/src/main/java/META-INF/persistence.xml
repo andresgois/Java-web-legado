@@ -3,12 +3,12 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-	
+	<!-- 
 	<persistence-unit name="ProjTes"
 		transaction-type="JTA">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>java:jboss/datasources/MysqlDS</jta-data-source>
-		<class>andresgois.github.io.to.UsuarioTO</class>
+		<class>andresgois.github.io.todeprecated.UsuarioTO</class>
 		<properties>
 			<property
 				name="javax.persistence.schema-generation.database.action"
@@ -29,6 +29,45 @@
 				value="update" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
+		</properties>
+	</persistence-unit>
+	-->
+	
+	<persistence-unit name="WS_BANESTES_PJE1G" transaction-type="JTA">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<jta-data-source>java:jboss/datasources/WS_BANESTES_PJE1G</jta-data-source>
+		<class>andresgois.github.io.to.AssuntoProcessoTO</class>
+		<class>andresgois.github.io.to.AssuntoTO</class>
+		<class>andresgois.github.io.to.ParteTO</class>
+		<class>andresgois.github.io.to.PessoaTO</class>
+		<class>andresgois.github.io.to.ProcessoBancoTO</class>
+		<class>andresgois.github.io.to.SistemaTO</class>
+		<class>andresgois.github.io.to.TipoParteTO</class>
+		<class>andresgois.github.io.to.TipoProcessoTO</class>
+		<properties>
+			<property name="javax.persistence.schema-generation.database.action" value="update" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="WS_BANESTES_PJE2G" transaction-type="JTA">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<jta-data-source>java:jboss/datasources/WS_BANESTES_PJE2G</jta-data-source>
+		<class>andresgois.github.io.to.AssuntoProcessoTO</class>
+		<class>andresgois.github.io.to.AssuntoTO</class>
+		<class>andresgois.github.io.to.ParteTO</class>
+		<class>andresgois.github.io.to.PessoaTO</class>
+		<class>andresgois.github.io.to.ProcessoTO</class>
+		<class>andresgois.github.io.to.SistemaTO</class>
+		<class>andresgois.github.io.to.TipoParteTO</class>
+		<class>andresgois.github.io.to.TipoProcessoTO</class>
+		<properties>
+		<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="javax.persistence.schema-generation.database.action" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="false" />
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -2,6 +2,9 @@ package andresgois.github.io.resource;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -10,9 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
-import andresgois.github.io.dao.UsuarioMysqlDAO;
-import andresgois.github.io.dao.UsuarioPostgresqlDAO;
-import andresgois.github.io.to.UsuarioTO;
+
+import andresgois.github.io.dao.AssuntoDAO;
+import andresgois.github.io.dao.ProcessoDAO;
+import andresgois.github.io.dao.deprecated.UsuarioMysqlDAO;
+import andresgois.github.io.dao.deprecated.UsuarioPostgresqlDAO;
+import andresgois.github.io.to.AssuntoTO;
+import andresgois.github.io.to.ProcessoBancoTO;
+import andresgois.github.io.todeprecated.UsuarioTO;
 
 
 
@@ -68,7 +76,7 @@ public class TestServlet extends HttpServlet {
 		response.getWriter().append("Usuario criado com id: "+u.getId()).close();
 	}*/
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//List<UsuarioTO> lista = UsuarioMysqlDAO.getInstance().listAllUsers();
     	//http://localhost:8080/ProjTes/TestServlet?matricula=123456
@@ -98,6 +106,59 @@ public class TestServlet extends HttpServlet {
 		    out.println("</table>");
 		    out.println("</body>");
 		    out.println("</html>");
+		} catch (Exception e) {
+			response.getWriter().append("Usuario não encontrado!").close();
+		}
+		
+	}*/
+    
+    /*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+    	//http://localhost:8080/ProjTes/TestServlet?matricula=123456
+		try {
+			List<AssuntoTO> PJE2G = AssuntoDAO.getInstance().listAssuntos("PJE2G");
+			
+			System.out.println("PJE1G");
+			StringBuilder sb = new StringBuilder();
+			for(AssuntoTO pj: PJE2G) {
+				sb.append(pj.getCdAssunto()+ " - "+pj.getDescricao()+"\n");
+				System.out.println(pj.getCdAssunto()+ " - "+pj.getDescricao());
+			}
+			
+			PrintWriter out = response.getWriter();
+	        out.println("Assunto : "+sb.toString());
+		} catch (Exception e) {
+			response.getWriter().append("Usuario não encontrado!").close();
+		}
+		
+	}*/
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+    	//http://localhost:8080/ProjTes/TestServlet?cdproc=2023
+		try {
+			// PJE1G = 2023
+			// PJE2G = 1234
+			List<ProcessoBancoTO> PJE = new ArrayList<>();
+			
+			Integer cdproc = Integer.valueOf(request.getParameter("cdproc"));
+			if(PJE == null || PJE.isEmpty()) {
+				PJE = ProcessoDAO.getInstance().buscaProcesso("PJE1G", cdproc);
+			}
+			if(PJE == null || PJE.isEmpty()){				
+				System.out.println("Estava no PJE2G");
+				PJE = ProcessoDAO.getInstance().buscaProcesso("PJE2G", cdproc);
+			}
+			
+			System.out.println("PJE1G");
+			StringBuilder sb = new StringBuilder();
+			for(ProcessoBancoTO proc: PJE) {
+				sb.append(proc.getCdAgrupSitPro()+proc.getSistema().getDescricao()+"\n");
+				System.out.println(proc.getCdAgrupSitPro()+proc.getSistema().getDescricao());
+			}
+			
+			PrintWriter out = response.getWriter();
+	        out.println("Assunto : "+sb.toString());
 		} catch (Exception e) {
 			response.getWriter().append("Usuario não encontrado!").close();
 		}

@@ -1,4 +1,4 @@
-package andresgois.github.io.dao;
+package andresgois.github.io.dao.deprecated;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
