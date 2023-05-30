@@ -30,6 +30,18 @@
 				</f:facet>
 			</p:panelGrid>
 		</h:form>
+		
+		<h:form id="testSelect">
+			<p:panelGrid columns="2">
+				<h:selectOneMenu id="selectOneMenu" value="#{livroBean.turno}" >
+					<f:selectItems value="#{livroBean.turnos}" var="t"
+		    			itemValue="#{t}" itemLabel="#{t.descricao}" />
+				</h:selectOneMenu>
+			</p:panelGrid>
+			<p:commandButton value="Imprimir" 
+				action="#{livroBean.imprimir}" update=":turno" />
+		</h:form>
+		<h:outputLabel id="turno" value="#{livroBean.turno}" />
 			
 	<p:separator id="separator"/>
 	
